@@ -1,0 +1,30 @@
+Grapheme,IPA,Comment
+a,a,
+e,e,
+i,i,
+o,o,
+u,u,
+p,p,
+t,t,
+k,k,
+w,w,
+z,z,
+m,m,
+n,n,
+s,s,
+r,r,
+y,ɨ,
+',ʔ,
+x,ʃ,
+j,j,
+â,ã,
+ê,ẽ,
+î,ĩ,
+ô,õ,
+û,ũ,
+h,ʔ,
+ÿ,ɨ̃,
+~,Ṽ,Nasalization across morpheme boundaries
+V,V,Undefined vowel
+C,C,Undefined consonant
+V:,VV,Undefined long vowel
