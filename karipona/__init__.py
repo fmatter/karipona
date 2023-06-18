@@ -4,18 +4,16 @@ import re
 import pybtex
 from Bio import Phylo
 from importlib_resources import files
-from pycldf import Generic
+from pycldf import Dataset
 from pycldf.sources import Source
 from writio import load
 
-metadata_path = (
-    "/home/florianm/Dropbox/research/cariban/cariban_meta/cldf/metadata.json"
-)
 datapath = files("karipona") / "data"
+metadata_path = datapath /"cldf"/"metadata.json"
 
-c_data = Generic.from_metadata(metadata_path)
+c_data = Dataset.from_metadata(metadata_path)
 sources = pybtex.database.parse_file(c_data.bibpath)
-sources = [Source.from_entry(k, e) for k, e in sources.entries.items()]
+sources = {k: Source.from_entry(k, e) for k, e in sources.entries.items()}
 
 tree = Phylo.read(datapath / "tree.nwk", "newick")
 
