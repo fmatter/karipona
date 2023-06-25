@@ -23,9 +23,9 @@ shorthands = {}
 lang_ids = {}
 isos = {}
 dialects = {}
-language_data = {}
-attested_languages = []
-proto_languages = []
+languages = {}
+attested_language_ids = []
+proto_language_ids = []
 
 for lg in c_data["LanguageTable"]:
     glottocodes[lg["Glottocode"]] = {
@@ -45,7 +45,7 @@ for lg in c_data["LanguageTable"]:
         "name": lg["Name"],
         "glottocode": lg["Glottocode"],
     }
-    language_data[lg["ID"]] = lg
+    languages[lg["ID"]] = lg
 
     if lg["Dialect_Of"] != None:
         dialects[lg["ID"]] = lg["Dialect_Of"]
@@ -53,10 +53,13 @@ for lg in c_data["LanguageTable"]:
         dialects[lg["ID"]] = lg["ID"]
 
     if lg["Proto_Language"]:
-        proto_languages.append(lg["ID"])
+        proto_language_ids.append(lg["ID"])
     else:
-        attested_languages.append(lg["ID"])
+        attested_language_ids.append(lg["ID"])
 
+
+proto_languages = {x: languages[x] for x in proto_language_ids}
+attested_languages = {x: languages[x] for x in attested_language_ids}
 
 def iter_nodes(node):
     yield node.name
@@ -70,7 +73,7 @@ def tree_order():
 
 
 def get_lg_data(id):
-    return language_data[id]
+    return languages[id]
 
 
 def get_glottocode(string):
@@ -119,7 +122,7 @@ lists = {
 
 def lg_order(identifier="id", as_dict=True):
     order = tree_order()
-    if identifier != "id":
+    if identifier!="id":
         order = list(map(lists[identifier], order))
     if as_dict:
         numbers = list(range(0, len(order)))
@@ -164,7 +167,7 @@ def get_cldf_lg_table(lol):
     for lg in set(lol):
         out.append(
             {
-                your_key: language_data[lg][your_key]
+                your_key: languages[lg][your_key]
                 for your_key in ["ID", "Glottocode", "Name", "Latitude", "Longitude"]
             }
         )
